@@ -32,7 +32,6 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* ── Hero ── */
   .hero {
     text-align: center;
     padding: 6rem 2rem 4rem;
@@ -66,33 +65,17 @@
     margin: 0 auto;
     padding: 0 2rem 4rem;
   }
-  .hero-image .img-slot {
-    background: var(--section-alt);
-    border: 1px solid var(--border-light);
+  .hero-image img {
+    width: 100%;
     border-radius: 16px;
-    padding: 4.5rem 2rem;
-    text-align: center;
-    color: var(--text-tertiary);
-    font-size: 0.85rem;
-  }
-  .img-slot-label { font-weight: 500; color: var(--text-secondary); margin-bottom: 0.35rem; }
-  .img-slot code {
-    display: inline-block;
-    margin-top: 0.5rem;
-    background: #e8e8ed;
-    padding: 3px 8px;
-    border-radius: 4px;
-    font-size: 0.78rem;
-    color: var(--text-secondary);
+    border: 1px solid var(--border-light);
   }
 
-  /* ── Section framework ── */
   .section { padding: 5rem 2rem; }
   .section-alt { background: var(--section-alt); }
   .section-border { border-top: 1px solid var(--border-light); }
   .section-inner { max-width: 980px; margin: 0 auto; }
 
-  /* ── Intro text ── */
   .intro-text {
     max-width: 620px;
     margin: 0 auto;
@@ -111,7 +94,6 @@
     color: var(--text-secondary);
   }
 
-  /* ── Feature showcase (alternating) ── */
   .showcase {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -141,18 +123,12 @@
     border-top: 1px solid var(--border-light);
   }
 
-  .s-media .img-slot {
-    background: var(--surface);
-    border: 1px solid var(--border-light);
+  .s-media img, .s-media video {
+    width: 100%;
     border-radius: 14px;
-    padding: 3.5rem 1.5rem;
-    text-align: center;
-    color: var(--text-tertiary);
-    font-size: 0.83rem;
+    border: 1px solid var(--border-light);
   }
-  .section-alt .s-media .img-slot { background: var(--bg); }
 
-  /* ── Details grid ── */
   .details-header {
     margin-bottom: 2.5rem;
   }
@@ -186,7 +162,6 @@
     line-height: 1.5;
   }
 
-  /* ── Roadmap ── */
   .roadmap-inner { max-width: 620px; margin: 0 auto; }
   .roadmap-inner h2 {
     font-size: 1.5rem;
@@ -221,7 +196,6 @@
   .r-label strong { font-weight: 600; }
   .r-label span { color: var(--text-secondary); }
 
-  /* ── CTA ── */
   .cta {
     text-align: center;
     padding: 5rem 2rem;
@@ -275,27 +249,20 @@
 </head>
 <body>
 
-<!-- ═══ Hero ═══ -->
 <div class="hero">
   <div class="hero-eyebrow">Northeastern University</div>
   <h1>NU Map</h1>
   <p class="subtitle">A degree audit that plans forward, looks back, and&nbsp;makes prerequisite chains visible at a glance.</p>
 </div>
 <div class="hero-image">
-  <div class="img-slot">
-    <div class="img-slot-label">Main planner view</div>
-    Full-width screenshot of the planner layout with courses placed across semesters.<br>
-    <code>&lt;img src="images/planner-overview.png" alt="Planner overview" style="width:100%; border-radius:12px;"&gt;</code>
-  </div>
+  <img src="images/planner-overview.png" alt="Main planner view">
 </div>
 
-<!-- ═══ Motivation ═══ -->
 <div class="intro-text">
   <h2>The audit checks requirements. This helps you plan around them.</h2>
   <p>Northeastern's degree audit is effective at answering whether you're on track to graduate. This project explores a different question: what's the best way to get there? It puts the course planner at the center and gives students tools to sequence courses, visualize dependencies, and experiment with plans quickly.</p>
 </div>
 
-<!-- ═══ Feature 1: Layout ═══ -->
 <div class="section section-border">
   <div class="section-inner">
     <div class="showcase">
@@ -306,17 +273,12 @@
         <p class="s-context">The current audit allocates most of its space to the requirements list, with the planner as a narrower secondary panel.</p>
       </div>
       <div class="s-media">
-        <div class="img-slot">
-          <div class="img-slot-label">Layout with side panels</div>
-          Screenshot showing the planner, course bank, and graduation panel.<br>
-          <code>&lt;img src="images/layout.png" ...&gt;</code>
-        </div>
+        <img src="images/layout.png" alt="Planner layout with side panels">
       </div>
     </div>
   </div>
 </div>
 
-<!-- ═══ Feature 2: Prerequisites ═══ -->
 <div class="section section-alt section-border">
   <div class="section-inner">
     <div class="showcase reverse">
@@ -327,17 +289,12 @@
         <p class="s-context">Prerequisite information is currently available as text. Tracing multi-step chains across semesters requires checking each course individually.</p>
       </div>
       <div class="s-media">
-        <div class="img-slot">
-          <div class="img-slot-label">Prerequisite arrows</div>
-          Screenshot showing arrows between courses, ideally including a red conflict arrow.<br>
-          <code>&lt;img src="images/prereqs.png" ...&gt;</code>
-        </div>
+        <img src="images/prereqs.png" alt="Prerequisite arrow visualization">
       </div>
     </div>
   </div>
 </div>
 
-<!-- ═══ Feature 3: Drag and Drop ═══ -->
 <div class="section section-border">
   <div class="section-inner">
     <div class="showcase">
@@ -347,17 +304,12 @@
         <p class="s-context">The current process for adding and removing courses involves more steps, and there is no undo support.</p>
       </div>
       <div class="s-media">
-        <div class="img-slot">
-          <div class="img-slot-label">Drag-and-drop interaction</div>
-          Short recording of a course being dragged into a semester.<br>
-          <code>&lt;video src="images/drag-drop.mov" autoplay loop muted playsinline style="width:100%; border-radius:12px;"&gt;</code>
-        </div>
+        <video src="images/drag-drop.mov" autoplay loop muted playsinline></video>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ═══ Feature 4: Full Timeline ═══ -->
 <div class="section section-alt section-border">
   <div class="section-inner">
     <div class="showcase reverse">
@@ -367,17 +319,12 @@
         <p class="s-context">Currently, new plans start from the current semester. There is no way to view previously completed coursework within the planner.</p>
       </div>
       <div class="s-media">
-        <div class="img-slot">
-          <div class="img-slot-label">Full timeline view</div>
-          Screenshot showing both completed and planned semesters.<br>
-          <code>&lt;img src="images/timeline.png" ...&gt;</code>
-        </div>
+        <img src="images/timeline.png" alt="Full academic timeline view">
       </div>
     </div>
   </div>
 </div>
 
-<!-- ═══ Details Grid ═══ -->
 <div class="section section-border">
   <div class="section-inner">
     <div class="details-header">
@@ -424,7 +371,6 @@
   </div>
 </div>
 
-<!-- ═══ Roadmap ═══ -->
 <div class="section section-alt section-border">
   <div class="roadmap-inner">
     <h2>In progress and next steps.</h2>
@@ -453,7 +399,6 @@
   </div>
 </div>
 
-<!-- ═══ CTA ═══ -->
 <div class="cta">
   <h2>I'd welcome the conversation.</h2>
   <p>A demo walkthrough, feedback on the approach, or a discussion about what's possible — any of these would be valuable.</p>
