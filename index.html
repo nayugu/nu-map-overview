@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Degree Audit Reimagined</title>
+<style>
+  :root {
+    --bg: #fbfbfd;
+    --surface: #ffffff;
+    --text: #1d1d1f;
+    --text-secondary: #6e6e73;
+    --text-tertiary: #86868b;
+    --border: #d2d2d7;
+    --border-light: #e8e8ed;
+    --section-alt: #f5f5f7;
+    --accent: #0066cc;
+    --tag-wip: #bf4800;
+    --tag-wip-bg: #fff3e0;
+    --tag-next: #0066cc;
+    --tag-next-bg: #e8f0fe;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    text-align: center;
+    padding: 6rem 2rem 4rem;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .hero-eyebrow {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1.8px;
+    color: var(--text-tertiary);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-size: 3.2rem;
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+  .hero .subtitle {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  .hero-image {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 2rem 4rem;
+  }
+  .hero-image .img-slot {
+    background: var(--section-alt);
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    padding: 4.5rem 2rem;
+    text-align: center;
+    color: var(--text-tertiary);
+    font-size: 0.85rem;
+  }
+  .img-slot-label { font-weight: 500; color: var(--text-secondary); margin-bottom: 0.35rem; }
+  .img-slot code {
+    display: inline-block;
+    margin-top: 0.5rem;
+    background: #e8e8ed;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+  }
+
+  /* ── Section framework ── */
+  .section { padding: 5rem 2rem; }
+  .section-alt { background: var(--section-alt); }
+  .section-border { border-top: 1px solid var(--border-light); }
+  .section-inner { max-width: 980px; margin: 0 auto; }
+
+  /* ── Intro text ── */
+  .intro-text {
+    max-width: 620px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+  .intro-text h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.25;
+    margin-bottom: 1rem;
+  }
+  .intro-text p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+  }
+
+  /* ── Feature showcase (alternating) ── */
+  .showcase {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .showcase.reverse .s-text { order: 2; }
+  .showcase.reverse .s-media { order: 1; }
+
+  .s-text h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    line-height: 1.25;
+    margin-bottom: 0.75rem;
+  }
+  .s-text p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+  }
+  .s-context {
+    font-size: 0.84rem;
+    color: var(--text-tertiary);
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-light);
+  }
+
+  .s-media .img-slot {
+    background: var(--surface);
+    border: 1px solid var(--border-light);
+    border-radius: 14px;
+    padding: 3.5rem 1.5rem;
+    text-align: center;
+    color: var(--text-tertiary);
+    font-size: 0.83rem;
+  }
+  .section-alt .s-media .img-slot { background: var(--bg); }
+
+  /* ── Details grid ── */
+  .details-header {
+    margin-bottom: 2.5rem;
+  }
+  .details-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+
+  .details-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border-light);
+    border: 1px solid var(--border-light);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .detail-cell {
+    background: var(--surface);
+    padding: 1.5rem 1.75rem;
+  }
+  .detail-cell h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+  .detail-cell p {
+    font-size: 0.83rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  /* ── Roadmap ── */
+  .roadmap-inner { max-width: 620px; margin: 0 auto; }
+  .roadmap-inner h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.3px;
+  }
+  .roadmap-intro {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+  }
+  .roadmap-item {
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+    margin-bottom: 1.1rem;
+  }
+  .r-tag {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .r-wip { background: var(--tag-wip-bg); color: var(--tag-wip); }
+  .r-next { background: var(--tag-next-bg); color: var(--tag-next); }
+  .r-label { font-size: 0.92rem; }
+  .r-label strong { font-weight: 600; }
+  .r-label span { color: var(--text-secondary); }
+
+  /* ── CTA ── */
+  .cta {
+    text-align: center;
+    padding: 5rem 2rem;
+    border-top: 1px solid var(--border-light);
+  }
+  .cta h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.3px;
+  }
+  .cta p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 1.75rem;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .cta a {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    padding: 0.75rem 2.2rem;
+    border-radius: 980px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: background 0.15s;
+  }
+  .cta a:hover { background: #0055aa; }
+
+  .footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-tertiary);
+    font-size: 0.8rem;
+    border-top: 1px solid var(--border-light);
+  }
+
+  @media (max-width: 740px) {
+    .hero h1 { font-size: 2.2rem; }
+    .hero { padding: 4rem 1.5rem 2.5rem; }
+    .showcase { grid-template-columns: 1fr; gap: 2rem; }
+    .showcase.reverse .s-text { order: 1; }
+    .showcase.reverse .s-media { order: 2; }
+    .details-grid { grid-template-columns: 1fr; }
+    .section { padding: 3rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ Hero ═══ -->
+<div class="hero">
+  <div class="hero-eyebrow">Northeastern University</div>
+  <h1>[Project Name]</h1>
+  <p class="subtitle">A degree audit that plans forward, looks back, and&nbsp;makes prerequisite chains visible at a glance.</p>
+</div>
+<div class="hero-image">
+  <div class="img-slot">
+    <div class="img-slot-label">Main planner view</div>
+    Full-width screenshot of the planner layout with courses placed across semesters.<br>
+    <code>&lt;img src="images/planner-overview.png" alt="Planner overview" style="width:100%; border-radius:12px;"&gt;</code>
+  </div>
+</div>
+
+<!-- ═══ Motivation ═══ -->
+<div class="intro-text">
+  <h2>The audit checks requirements. This helps you plan around them.</h2>
+  <p>Northeastern's degree audit is effective at answering whether you're on track to graduate. This project explores a different question: what's the best way to get there? It puts the course planner at the center and gives students tools to sequence courses, visualize dependencies, and experiment with plans quickly.</p>
+</div>
+
+<!-- ═══ Feature 1: Layout ═══ -->
+<div class="section section-border">
+  <div class="section-inner">
+    <div class="showcase">
+      <div class="s-text">
+        <h3>The planner is the primary view.</h3>
+        <p>The course planner takes the majority of the screen. The course bank and graduation panel are accessible in compact side panels — present when needed, out of the way when not.</p>
+        <p>Each semester displays courses with 3 or more credits in a clean row. Smaller credits are accessible below, keeping the default view focused on what matters most.</p>
+        <p class="s-context">The current audit allocates most of its space to the requirements list, with the planner as a narrower secondary panel.</p>
+      </div>
+      <div class="s-media">
+        <div class="img-slot">
+          <div class="img-slot-label">Layout with side panels</div>
+          Screenshot showing the planner, course bank, and graduation panel.<br>
+          <code>&lt;img src="images/layout.png" ...&gt;</code>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Feature 2: Prerequisites ═══ -->
+<div class="section section-alt section-border">
+  <div class="section-inner">
+    <div class="showcase reverse">
+      <div class="s-text">
+        <h3>Prerequisites rendered as arrows, not lists.</h3>
+        <p>Clicking a course draws SVG arrows to its direct prerequisites and dependents. The visualization is scoped — only immediate parents and children appear, keeping things readable.</p>
+        <p>When a prerequisite is placed in the wrong order, a red arrow marks the conflict. When a prerequisite isn't placed at all, a separate warning appears.</p>
+        <p class="s-context">Prerequisite information is currently available as text. Tracing multi-step chains across semesters requires checking each course individually.</p>
+      </div>
+      <div class="s-media">
+        <div class="img-slot">
+          <div class="img-slot-label">Prerequisite arrows</div>
+          Screenshot showing arrows between courses, ideally including a red conflict arrow.<br>
+          <code>&lt;img src="images/prereqs.png" ...&gt;</code>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Feature 3: Drag and Drop ═══ -->
+<div class="section section-border">
+  <div class="section-inner">
+    <div class="showcase">
+      <div class="s-text">
+        <h3>Drag to place. Drag back to remove. Undo everything.</h3>
+        <p>Courses move between the course bank and the planner by dragging. Removing a course works the same way in reverse. Undo and redo are mapped to standard keyboard shortcuts — making it easy to experiment without consequence.</p>
+        <p class="s-context">The current process for adding and removing courses involves more steps, and there is no undo support.</p>
+      </div>
+      <div class="s-media">
+        <div class="img-slot">
+          <div class="img-slot-label">Drag-and-drop interaction</div>
+          Short recording of a course being dragged into a semester.<br>
+          <code>&lt;video src="images/drag-drop.mov" autoplay loop muted playsinline style="width:100%; border-radius:12px;"&gt;</code>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Feature 4: Full Timeline ═══ -->
+<div class="section section-alt section-border">
+  <div class="section-inner">
+    <div class="showcase reverse">
+      <div class="s-text">
+        <h3>Plans that include where you've been, not just where you're going.</h3>
+        <p>Plans begin from your entry semester. Courses you've already completed sit alongside courses you're planning, giving you the full picture in one view.</p>
+        <p class="s-context">Currently, new plans start from the current semester. There is no way to view previously completed coursework within the planner.</p>
+      </div>
+      <div class="s-media">
+        <div class="img-slot">
+          <div class="img-slot-label">Full timeline view</div>
+          Screenshot showing both completed and planned semesters.<br>
+          <code>&lt;img src="images/timeline.png" ...&gt;</code>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Details Grid ═══ -->
+<div class="section section-border">
+  <div class="section-inner">
+    <div class="details-header">
+      <h2>Additional details.</h2>
+    </div>
+    <div class="details-grid">
+      <div class="detail-cell">
+        <h4>Availability alerts</h4>
+        <p>Flags courses that likely aren't offered in a given semester. Users can override the alert if they have better information.</p>
+      </div>
+      <div class="detail-cell">
+        <h4>Color-coded courses</h4>
+        <p>Courses are colored by department code, making it easy to scan the distribution across semesters.</p>
+      </div>
+      <div class="detail-cell">
+        <h4>Course starring</h4>
+        <p>Bookmark courses you're considering for quick reference without committing them to a semester.</p>
+      </div>
+      <div class="detail-cell">
+        <h4>Save and load</h4>
+        <p>Plans export as JSON files and can be loaded back at any time. No data is lost between sessions.</p>
+      </div>
+      <div class="detail-cell">
+        <h4>PDF export</h4>
+        <p>Generate a formatted PDF for advisor meetings, personal records, or sharing with peers.</p>
+      </div>
+      <div class="detail-cell">
+        <h4>Cohort switching</h4>
+        <p>Change cohorts to see how your plan maps to different requirement sets without starting over.</p>
+      </div>
+      <div class="detail-cell">
+        <h4>Light and dark mode</h4>
+        <p>Full theme support across the interface.</p>
+      </div>
+      <div class="detail-cell">
+        <h4>AI-ready summary</h4>
+        <p>Generate a structured text summary of your plan for use with a chatbot or AI advisor.</p>
+      </div>
+      <div class="detail-cell">
+        <h4>Placed-out courses</h4>
+        <p>Mark courses you've placed out of so they're reflected in your plan and progress tracking.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ Roadmap ═══ -->
+<div class="section section-alt section-border">
+  <div class="roadmap-inner">
+    <h2>In progress and next steps.</h2>
+    <p class="roadmap-intro">The prototype covers the core planning experience. These are the areas where continued development — and institutional support — would have the most impact.</p>
+
+    <div class="roadmap-item">
+      <span class="r-tag r-wip">In progress</span>
+      <div class="r-label"><strong>Graduation requirements panel.</strong> <span>Core structure exists. Refining accuracy and edge case handling.</span></div>
+    </div>
+    <div class="roadmap-item">
+      <span class="r-tag r-wip">In progress</span>
+      <div class="r-label"><strong>Semester offering data.</strong> <span>Building a more maintainable update pipeline.</span></div>
+    </div>
+    <div class="roadmap-item">
+      <span class="r-tag r-wip">In progress</span>
+      <div class="r-label"><strong>Major requirements configuration.</strong> <span>Making per-major rules easier to update and verify.</span></div>
+    </div>
+    <div class="roadmap-item">
+      <span class="r-tag r-next">Next</span>
+      <div class="r-label"><strong>Live course catalog access.</strong> <span>Direct integration would improve data accuracy significantly.</span></div>
+    </div>
+    <div class="roadmap-item">
+      <span class="r-tag r-next">Next</span>
+      <div class="r-label"><strong>Integrated AI advising.</strong> <span>Contextual assistance built directly into the planning interface.</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CTA ═══ -->
+<div class="cta">
+  <h2>I'd welcome the conversation.</h2>
+  <p>A demo walkthrough, feedback on the approach, or a discussion about what's possible — any of these would be valuable.</p>
+  <a href="mailto:your.email@northeastern.edu">Get in touch</a>
+</div>
+
+<div class="footer">
+  Nathan G · CS + Math, Northeastern University
+</div>
+
+</body>
+</html>
